@@ -1,14 +1,16 @@
 pipeline {
-    agent any
+	agent any
     stages {
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+            	bat 'd:'
+            	bat 'cd C:\Users\gengxue\.jenkins\workspace\simple-java-maven-app@script'
+                bat 'mvn -B -DskipTests clean package'
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
             post {
                 always {
@@ -16,11 +18,6 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') { 
-            steps {
-                sh "chmod 775 ./jenkins/scripts/deliver.sh"
-                sh './jenkins/scripts/deliver.sh'
-            }
-        }
+        
     }
 }
